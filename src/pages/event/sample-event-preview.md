@@ -1,6 +1,6 @@
 ---
 templateKey: event-page
-title: Sample Event Preview
+title: Sample Event Preview Update
 date: 2022-01-02T23:11:43.032Z
 description: fefe frefre3
 status: Upcoming
