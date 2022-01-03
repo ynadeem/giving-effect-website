@@ -13,6 +13,46 @@ media_folder: static/img
 public_folder: /img
 
 collections:
+  - name: "event"
+    label: "Event"
+    folder: "src/pages/event"
+    create: true
+    slug: "{{slug}}-{{year}}{{month}}{{day}}"
+    fields:
+      - {
+          label: "Template Key",
+          name: "templateKey",
+          widget: "hidden",
+          default: "event-post",
+        }
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Event Date", name: "eventDate", widget: "datetime", required: true }
+      - { label: "Web Link", name: "weblink", widget: "string", required: false }
+      - { label: "Body", name: "body", widget: "markdown", required: true }
+      - { label: "Status", name: "status", widget: "string", default: "Upcoming" }
+      - {
+          label: "Images",
+          name: "images",
+          widget: "list",
+          fields:
+            [
+              { label: Caption, name: caption, widget: string },
+              { label: Image, name: image, widget: image },
+              { label: Details, name: details, widget: text },
+            ],
+        }
+      - {
+          label: "Updates",
+          name: "updates",
+          widget: list,
+          fields:
+            [
+              { label: Name, name: name, widget: string },
+              { label: Date, name: date, widget: datetime },
+              { label: Details, name: details, widget: text },
+            ],
+        }
+
   - name: "blog"
     label: "Blog"
     folder: "src/pages/blog"

@@ -1,5 +1,5 @@
 ---
-templateKey: event-page
+templateKey: event-post
 title: Sample Event Preview Update 2
 date: 2022-01-02T23:11:43.032Z
 description: fefe frefre3

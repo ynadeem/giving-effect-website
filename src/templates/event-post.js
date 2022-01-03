@@ -3,18 +3,16 @@ import { Link, graphql } from "gatsby";
 
 import { Helmet } from "react-helmet";
 import Layout from "../components/Layout";
-import PropTypes from "prop-types";
 import React from "react";
-import { kebabCase } from "lodash";
 
 // eslint-disable-next-line
-export const BlogPostTemplate = ({
+export const EventPostTemplate = ({
   content,
   contentComponent,
   description,
-  tags,
   title,
   helmet,
+  status
 }) => {
   const PostContent = contentComponent || Content;
 
@@ -28,19 +26,8 @@ export const BlogPostTemplate = ({
               {title}
             </h1>
             <p>{description}</p>
+            <p>This event is {status}</p>
             <PostContent content={content} />
-            {tags && tags.length ? (
-              <div style={{ marginTop: `4rem` }}>
-                <h4>Tags</h4>
-                <ul className="taglist">
-                  {tags.map((tag) => (
-                    <li key={tag + `tag`}>
-                      <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
           </div>
         </div>
       </div>
@@ -48,20 +35,13 @@ export const BlogPostTemplate = ({
   );
 };
 
-BlogPostTemplate.propTypes = {
-  content: PropTypes.node.isRequired,
-  contentComponent: PropTypes.func,
-  description: PropTypes.string,
-  title: PropTypes.string,
-  helmet: PropTypes.object,
-};
 
-const BlogPost = ({ data }) => {
+const EventPost = ({ data }) => {
   const { markdownRemark: post } = data;
 
   return (
     <Layout>
-      <BlogPostTemplate
+      <EventPostTemplate
         content={post.html}
         contentComponent={HTMLContent}
         description={post.frontmatter.description}
@@ -74,23 +54,18 @@ const BlogPost = ({ data }) => {
             />
           </Helmet>
         }
-        tags={post.frontmatter.tags}
         title={post.frontmatter.title}
+        status={post.frontmatter.status}
       />
     </Layout>
   );
 };
 
-BlogPost.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.object,
-  }),
-};
 
-export default BlogPost;
+export default EventPost;
 
 export const pageQuery = graphql`
-  query BlogPostByID($id: String!) {
+  query EventPostByID($id: String!) {
     markdownRemark(id: { eq: $id }) {
       id
       html
@@ -98,7 +73,7 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         title
         description
-        tags
+        status
       }
     }
   }
