@@ -6,13 +6,12 @@ import Layout from "../components/Layout";
 import React from "react";
 import { kebabCase } from "lodash";
 
-// import { lightGreenBanner } from "../../static/img/light-green-banner.png";
-
 // eslint-disable-next-line
 export const BlogPostTemplate = ({
   content,
   contentComponent,
   description,
+  publishDate,
   featuredImage,
   imageBanner,
   tags,
@@ -31,33 +30,35 @@ export const BlogPostTemplate = ({
       </div>
       <div className="relative flex justify-center">
         <div className="max-w-5xl rounded shadow-lg bg-white absolute -top-40">
-          <div>
-            <div className="flex text-5xl text-primary-green-dark justify-center pt-8 mb-2">
+          <div className="w-5/6 mx-auto">
+            <div className="flex text-6xl text-primary-green-dark justify-center pt-8">
               {title}
             </div>
-            <div>
-              <div className="flex justify-center text-lg mb-6 px-20">
-                {description}
-              </div>
-              <img
-                src={featuredImage}
-                alt="Featured Image"
-                className="max-w-3xl mx-auto mb-6"
-              ></img>
-              <PostContent content={content} className="px-12 py-2" />
-              {tags && tags.length ? (
-                <div className="mt-4">
-                  <h4>Tags</h4>
-                  <ul className="">
-                    {tags.map((tag) => (
-                      <li key={tag + `tag`}>
-                        <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              ) : null}
+            <div className="text-md text-gray-400 mb-2">{publishDate}</div>
+            <div className="flex justify-center text-lg mb-6">
+              {description}
             </div>
+            <img
+              src={featuredImage}
+              alt="Featured Image"
+              className="max-w-3xl mx-auto mb-6"
+            ></img>
+            <PostContent content={content} className="py-2 text-justify" />
+            {tags && tags.length ? (
+              <div className="mt-4">
+                <div className="text-lg">Tags</div>
+                <div className="">
+                  {tags.map((tag) => (
+                    <div
+                      key={tag + `tag`}
+                      className="text-primary-green-dark hover:text-primary-green-light"
+                    >
+                      <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
@@ -74,6 +75,7 @@ const BlogPost = ({ data }) => {
         content={post.html}
         contentComponent={HTMLContent}
         description={post.frontmatter.description}
+        publishDate={post.frontmatter.date}
         featuredImage={post.frontmatter.featuredimage.publicURL}
         imageBanner={imageBanner.publicURL}
         helmet={
