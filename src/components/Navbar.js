@@ -1,5 +1,5 @@
-import React from "react";
 import { Link } from "gatsby";
+import React from "react";
 import github from "../img/github-icon.svg";
 import logo from "../img/logo.svg";
 

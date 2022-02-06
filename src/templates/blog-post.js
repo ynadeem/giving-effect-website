@@ -3,7 +3,6 @@ import { Link, graphql } from "gatsby";
 
 import { Helmet } from "react-helmet";
 import Layout from "../components/Layout";
-import PropTypes from "prop-types";
 import React from "react";
 import { kebabCase } from "lodash";
 
@@ -12,27 +11,32 @@ export const BlogPostTemplate = ({
   content,
   contentComponent,
   description,
+  featuredImage,
   tags,
   title,
   helmet,
 }) => {
   const PostContent = contentComponent || Content;
 
+  
+
   return (
-    <section className="section">
+    <section className="">
       {helmet || ""}
-      <div className="container content">
-        <div className="columns">
-          <div className="column is-10 is-offset-1">
-            <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
+      <div className="max-w-6xl rounded shadow-lg bg-white mx-auto">
+        <img src={featuredImage}>
+        </img>
+        <div className="">
+          <div className="">
+            <h1 className="text-4xl text-primary-green-dark px-12 py-2">
               {title}
             </h1>
-            <p>{description}</p>
-            <PostContent content={content} />
+            <p className="text-2xl px-12 py-2">{description}</p>
+            <PostContent content={content} className="px-12 py-2" />
             {tags && tags.length ? (
-              <div style={{ marginTop: `4rem` }}>
+              <div className="mt-4">
                 <h4>Tags</h4>
-                <ul className="taglist">
+                <ul className="">
                   {tags.map((tag) => (
                     <li key={tag + `tag`}>
                       <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
@@ -48,16 +52,10 @@ export const BlogPostTemplate = ({
   );
 };
 
-BlogPostTemplate.propTypes = {
-  content: PropTypes.node.isRequired,
-  contentComponent: PropTypes.func,
-  description: PropTypes.string,
-  title: PropTypes.string,
-  helmet: PropTypes.object,
-};
 
 const BlogPost = ({ data }) => {
   const { markdownRemark: post } = data;
+  console.log(post.frontmatter.featuredimage.publicURL)
 
   return (
     <Layout>
@@ -65,6 +63,7 @@ const BlogPost = ({ data }) => {
         content={post.html}
         contentComponent={HTMLContent}
         description={post.frontmatter.description}
+        featuredImage={post.frontmatter.featuredimage.publicURL}
         helmet={
           <Helmet titleTemplate="%s | Blog">
             <title>{`${post.frontmatter.title}`}</title>
@@ -81,11 +80,6 @@ const BlogPost = ({ data }) => {
   );
 };
 
-BlogPost.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.object,
-  }),
-};
 
 export default BlogPost;
 
@@ -98,6 +92,9 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         title
         description
+        featuredimage {
+          publicURL
+          }
         tags
       }
     }
