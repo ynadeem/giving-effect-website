@@ -10,11 +10,9 @@ const navigation = [
   { name: "Events", href: "#" },
   { name: "About", href: "#" },
   { name: "Donations", href: "#" },
+  { name: "Contact", href: "#" },
 ];
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(" ");
-}
 const Navbar = class extends React.Component {
   render() {
     // return (
