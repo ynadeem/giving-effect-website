@@ -1,9 +1,8 @@
 import { Link } from "gatsby";
 import React from "react";
 import logo from "../img/logo.png";
-import { Fragment } from "react";
-import { Disclosure, Menu, Transition } from "@headlessui/react";
-import { BellIcon, MenuIcon, XIcon } from "@heroicons/react/outline";
+import { Disclosure } from "@headlessui/react";
+import { MenuIcon, XIcon } from "@heroicons/react/outline";
 
 const navigation = [
   { name: "Blog", href: "/blog" },
@@ -15,9 +14,6 @@ const navigation = [
 
 const Navbar = class extends React.Component {
   render() {
-    // return (
-
-    // export default function Example() {
     return (
       <Disclosure as="nav" className="bg-beige-primary">
         {({ open }) => (
@@ -96,53 +92,6 @@ const Navbar = class extends React.Component {
       </Disclosure>
     );
   }
-  //       <div className="bg-primary-beige flex items-center">
-  //         <div className="">
-  //           <Link to="/" className="" title="Logo">
-  //             <img
-  //               src={logo}
-  //               alt="Kaldi"
-  //               style={{ width: "88px" }}
-  //               className="ml-2 mt-2"
-  //             />
-  //           </Link>
-  //           {/* Hamburger menu */}
-  //           <div
-  //             className=""
-  //             data-target="navMenu"
-  //             role="menuitem"
-  //             tabIndex={0}
-  //             onKeyPress={() => this.toggleHamburger()}
-  //             onClick={() => this.toggleHamburger()}
-  //           >
-  //             <span />
-  //             <span />
-  //             <span />
-  //           </div>
-  //         </div>
-  //         <div id="navMenu" className="">
-  //           <div className="navbar-start has-text-centered">
-  //             <Link className="navbar-item" to="/about">
-  //               About
-  //             </Link>
-  //             <Link className="navbar-item" to="/products">
-  //               Products
-  //             </Link>
-  //             <Link className="navbar-item" to="/blog">
-  //               Blog
-  //             </Link>
-  //             <Link className="navbar-item" to="/contact">
-  //               Contact
-  //             </Link>
-  //             <Link className="navbar-item" to="/contact/examples">
-  //               Form Examples
-  //             </Link>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     );
 };
-
-// };
 
 export default Navbar;
